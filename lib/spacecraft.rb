@@ -22,7 +22,7 @@ class Spacecraft
     end 
 
     def status 
-        Scraper.spacecraft_status(name)
+        API.spacecraft_status(name)
     end 
 
    

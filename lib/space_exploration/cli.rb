@@ -1,8 +1,25 @@
 class SpaceExploration::CLI 
 
-    def initialize
-        puts "Welcome to Space Hangar!"
-        puts 
+    def welcome 
+        puts ""
+        puts "---  Welcome to the International Space Station!  ---"
+        puts " .              +   .                .   . .     .  ."
+        puts "        .                    .       .     * "
+        puts ".       *                        . . . .  .   .  + ."
+        puts "                           .   .  +  . . ."
+        puts ".                 |             .  .   .    .    . ."
+        puts "       |           .     .     . +.    +  ."
+        puts "      \|/            .       .   . ."
+        puts ". .       V          .    * . . .  .  +   ."
+        puts "+      .           .   .      +"
+        puts "                 .       . +  .+. ."
+        puts ".                      .     . + .  . .     .      ."
+        puts ".      .    .     . .   . . .        ! /"
+        puts "*             .    . .  +    .  .       - O -"
+        puts ".     .    .  +   . .  *  .       . / |"
+        puts "    . + .  .  .  .. +  ."
+        puts ".      .  .  .  *   .  *  . +..  .            *"
+        puts ".      .   . .   .   .   . .  +   .    .            +"
     end 
 
 end 

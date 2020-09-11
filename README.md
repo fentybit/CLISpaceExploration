@@ -6,9 +6,9 @@
   There are 3 main Model or classes >> Astronaut, Spacecraft and Planet.
     Astronaut has many Spacecraft
     Astronaut conquers many Planets through Spacecraft
-    Number of missions
+    <!-- Number of missions -->
 
-    Spacecraft belongs to Astronaut
+    Spacecraft belongs to Astronautgit
     Spacecraft lands on many Planets
 
     Planet belongs to Spacecraft
