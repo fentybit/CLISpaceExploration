@@ -74,6 +74,7 @@ class SpaceExploration::CLI
         name = API.spacecraft_data[input.to_i - 1]["rocket_name"]
         Spacecraft.new(name)
         puts "Great! #{name} is up and ready for you."
+
         choose_planet
     end 
 
@@ -86,27 +87,58 @@ class SpaceExploration::CLI
         puts "   Worlds that are too small to be considered full-fledged planets, but too large to fall into smaller categories."
         puts "3. Your spacecraft can select random planet to fit best the fuel and time travel efficiency."
         puts "Would you like to travel to Planets or Dwarf Planets? Enter 1, 2 or 3."
+
         user_choose_planet
     end 
 
     def user_choose_planet
-        input = gets.strip
+        input_one = gets.strip
         
-        if input == "1"
-            API.planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
-            puts "Which one would you like to go to?"
-        elsif input == "2"
-            API.dwarf_planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
-            puts "Which one would you like to go to?"
-        elsif input == "3"
-            API.random_planet
+        if input_one == "1"
+            puts ""
+            puts "Here are your Planet selections."
+            planets = API.planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
+            puts "Which one would you like to go to? Enter the number."
+            input_two = gets.strip.to_i
+            name = planets[input_two - 1].to_s
+            Planet.new(name)
+        elsif input_one == "2"
+            puts ""
+            puts "There are 273 Dwarf Planet selections. We will give you 10."
+            planets = API.dwarf_planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
+            puts "Which one would you like to go to? Enter the number."
+            input_two = gets.strip.to_i
+            name = planets[input_two - 1].to_s
+            Planet.new(name)
+        elsif input_one == "3"
+            name = API.random_planet.first
             puts "Great! We shall prepare immediately."
+            Planet.new(name)
         else 
             puts "Please re-enter option 1, 2 or 3."
             user_choose_planet 
         end 
 
+        puts "#{name} it is. Please stand by."
+        
+        puts "Welcome to #{name}. Loading planet information."
+        API.planet_info(name)
+
+        gravity = API.planet_gravity(name)
+
+        if gravity == 0.0
+            puts "We are unable to land on this planet with 0 gravity."
+        else 
+            puts "We are able to land on this planet with #{gravity} m.s-2 gravity."
+        end 
+
+        more_space_travel
     end 
+
+    def more_space_travel 
+        puts "Would you like to travel to other planets?"
+    end 
+
     
 end 
         

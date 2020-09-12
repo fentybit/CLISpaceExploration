@@ -85,10 +85,10 @@ class API
         end 
     end 
 
-    def self.planet_attributes(name)
-        space_data.detect do |data|
+    def self.planet_gravity(name)
+        space_data.detect do |data| 
             if data["englishName"] == name 
-                data 
+                return data["gravity"]
             end 
         end 
     end 
