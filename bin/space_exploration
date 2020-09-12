@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-# require 'bundler/setup'
-require_relative '../config/environment.rb'
-# require_relative 'config/environment.rb'
+require_relative '../config/environment'
 
-SpaceExploration::CLI.new.welcome
+SpaceExploration::CLI.new.mission

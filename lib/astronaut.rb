@@ -1,7 +1,3 @@
-require 'pry'
-# Astronaut has many Spacecraft
-# Astronaut conquers many Planets through Spacecraft
-
 class Astronaut
     attr_reader :name, :yrs_exp
     # Once you pick the assigned astronauts, you can not change once mission commences
@@ -20,8 +16,6 @@ class Astronaut
     def save
         self.class.all << self
     end 
-
-    binding.pry 
 
     def self.count 
         all.count 

@@ -1,4 +1,3 @@
-require 'pry'
 # Planet belongs to Spacecraft
 # Planet has many Astronauts through Spacecraft
 

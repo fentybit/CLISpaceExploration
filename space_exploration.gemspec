@@ -28,9 +28,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 10.4"
   spec.add_development_dependency "pry"
+  spec.add_dependency "colorize", '~> 0.8.1'
   # spec.add_dependency "open-uri"
   # spec.add_dependency "net/http"
-  spec.add_dependency "json"
+  # spec.add_dependency "require_all"
+  # spec.add_dependency "json"
+
 end
