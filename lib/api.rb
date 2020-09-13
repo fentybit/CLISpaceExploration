@@ -1,3 +1,5 @@
+require 'pry'
+
 class API 
 
     # API for spacecraft data
@@ -12,12 +14,23 @@ class API
     end
 
     def self.spacecraft_selections 
-        API.spacecraft_data.each do |ship|
+        spacecraft_data.each do |ship|
             puts ship["rocket_name"].to_s 
             puts ship["description"].to_s
             puts "  Height: " + ship["height"]["feet"].to_s + " feet"
             puts "  Mass: " + ship["mass"]["lb"].to_s + " lbs"
-            puts "  Success Rate: " + ship["success_rate_pct"].to_s + "%"
+        end 
+    end 
+
+    def self.spacecraft_status(name)
+        spacecraft_data.detect do |ship|
+            if ship["rocket_name"] == name 
+                puts ship["rocket_name"].to_s 
+                puts "  Success Rate: " + ship["success_rate_pct"].to_s + "%"
+                puts "  Engine type: " + ship["engines"]["type"].capitalize.to_s 
+                puts "  Engine propellant 1: " + ship["engines"]["propellant_1"].capitalize.to_s 
+                puts "  Engine propellant 2: " + ship["engines"]["propellant_2"].capitalize.to_s 
+            end 
         end 
     end 
     
@@ -85,6 +98,14 @@ class API
         end 
     end 
 
+    def self.planet_name(id_name)
+        space_data.detect do |data|
+            if data["id"] == id_name 
+                return data["englishName"]
+            end 
+        end 
+    end 
+
     def self.planet_gravity(name)
         space_data.detect do |data| 
             if data["englishName"] == name 
@@ -92,18 +113,4 @@ class API
             end 
         end 
     end 
-
-    def self.closest_planet(current_planet)
-        space_data.detect do |data|
-            if data["englishName"] == current_planet 
-                if data["aroundPlanet"] == nil
-                    puts "If you would like to travel to other Planets, please enter 1."
-                    puts "If you are interested in dwarf Planets selections, please enter 2."
-                else 
-                    puts "Your closest planet is " + data["aroundPlanet"]["planet"].capitalize.to_s + "."
-                end 
-            end 
-        end 
-    end 
-
 end 

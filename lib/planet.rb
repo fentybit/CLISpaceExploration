@@ -2,7 +2,7 @@
 # Planet has many Astronauts through Spacecraft
 
 class Planet
-    attr_accessor :name 
+    attr_accessor :name, :spacecraft
     @@all = []
 
     def initialize(name)
