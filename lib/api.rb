@@ -100,9 +100,9 @@ class API
         end 
     end 
 
-    def self.planet_name(id_name)
+    def self.planet_name_search(id_name)
         space_data.detect do |data|
-            if data["id"] == id_name 
+            if data["id"] == id_name.downcase 
                 return data["englishName"]
             end 
         end 

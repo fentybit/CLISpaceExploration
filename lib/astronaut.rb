@@ -1,6 +1,6 @@
-require 'pry'
-
 class Astronaut
+    extend Paramable::ClassMethods
+    include Paramable::InstanceMethods
     attr_reader :name, :yrs_exp
     # Once you pick the assigned astronauts, you can not change once mission commences
     @@all = []
@@ -15,13 +15,13 @@ class Astronaut
         @@all
     end 
 
-    def save
-        self.class.all << self
-    end 
+    # def save
+    #     self.class.all << self
+    # end 
 
-    def self.count 
-        all.count 
-    end 
+    # def self.count 
+    #     all.count 
+    # end 
 
     def self.avg_yrs_exp
         total_yrs_exp = all.collect {|astro| astro.yrs_exp}.sum

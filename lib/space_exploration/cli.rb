@@ -201,14 +201,15 @@ class SpaceExploration::CLI
                     colorizer.write ".      .  .  .  *   .  *  . +..  .            *      \n"
                     colorizer.write ".      .   . .   .   .   . .  +   .    .            +\n"
                     puts ""
-                    puts "Your closest planet is " + data["englishName"].to_s + "."
+                    id_name = data["aroundPlanet"]["planet"]
+                    nearby_planet = API.planet_name_search(id_name)
+                    puts "Your closest planet is #{nearby_planet}."
                     puts ""
                     puts "Would you like to go there? Y/N."
                     input_one = gets.strip
 
                     if input_one.downcase == "y" || input_one.downcase == "yes"
-                        id_name = data["englishName"]
-                        @current_planet = API.planet_name(id_name)
+                        @current_planet = nearby_planet
                         
                         Planet.new(@current_planet, @rocket_name)
                         planet_landing?
@@ -228,18 +229,38 @@ class SpaceExploration::CLI
         Astronaut.sorted_names.each_with_index {|x, i| puts "#{i + 1}. #{x}"}
         puts ""
 
-        Spacecraft.all.each.with_index(1) do |rocket, i| 
-            puts "Spacecraft #{i}: #{rocket.name}"
-            puts "Planets conquered:" 
-            puts ship.planets_by_spacecraft(rocket.name)
-            puts ""
-        end 
+        Spacecraft.list_planets_by_spacecraft
+        # Spacecraft.all.each.with_index(1) do |rocket, i| 
+        #     puts "Spacecraft #{i}: #{rocket.name}"
+        #     puts "Planets conquered:" 
+        #     puts ship.planets_by_spacecraft(rocket.name)
+        #     puts ""
+        # end 
         puts ""
+        puts "You conquered #{Planet.count} planets!"
         puts "Goodbye now."
     end 
     
 end 
-        
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # input = nil
 # while input != "exit" 
 # puts "blablabla"

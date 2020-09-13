@@ -3,6 +3,7 @@ PATH
   specs:
     space_exploration (0.1.0)
       colorize (~> 0.8.1)
+      require_all
 
 GEM
   remote: https://rubygems.org/
