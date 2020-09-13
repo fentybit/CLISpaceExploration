@@ -63,7 +63,7 @@ class SpaceExploration::CLI
         puts ""
         puts "We have 4 available spacecrafts:"
         puts ""
-        API.spacecraft_selections 
+        API.spacecraft_selection
         puts "Which one would you like to choose? Enter 1, 2, 3 or 4."
         input = gets.strip
 
@@ -230,12 +230,7 @@ class SpaceExploration::CLI
         puts ""
 
         Spacecraft.list_planets_by_spacecraft
-        # Spacecraft.all.each.with_index(1) do |rocket, i| 
-        #     puts "Spacecraft #{i}: #{rocket.name}"
-        #     puts "Planets conquered:" 
-        #     puts ship.planets_by_spacecraft(rocket.name)
-        #     puts ""
-        # end 
+        
         puts ""
         puts "You conquered #{Planet.count} planets!"
         puts "Goodbye now."

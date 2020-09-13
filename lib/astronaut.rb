@@ -2,7 +2,7 @@ class Astronaut
     extend Paramable::ClassMethods
     include Paramable::InstanceMethods
     attr_reader :name, :yrs_exp
-    # Once you pick the assigned astronauts, you can not change once mission commences
+    
     @@all = []
     
     def initialize(name = "Shelby", yrs_exp = 27)

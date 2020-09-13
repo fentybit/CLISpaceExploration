@@ -13,7 +13,7 @@ class API
         JSON.parse(response.body)
     end
 
-    def self.spacecraft_selections 
+    def self.spacecraft_selection
         spacecraft_data.each do |ship|
             puts ship["rocket_name"].to_s 
             puts ship["description"].to_s
