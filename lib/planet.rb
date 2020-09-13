@@ -5,15 +5,11 @@ class Planet
     attr_accessor :name, :spacecraft
     @@all = []
 
-    def initialize(name)
+    def initialize(name, spacecraft)
         @name = name 
+        @spacecraft = spacecraft
         save
     end 
-    
-    # def initialize(neso)
-    #     attributes = Scraper.planet_attributes(name)
-    #     neso.each {|key, value| self.send(("#{key}="), value)}
-    # end 
 
     def self.all 
         @@all 

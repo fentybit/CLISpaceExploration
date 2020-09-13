@@ -18,14 +18,12 @@ class Spacecraft
         self.class.all << self
     end 
 
-    def planets_by_spacecraft
-        array = []
-        Planet.all.each do |each_planet| 
-            if each_planet.spacecraft == self 
-                array << each_planet.name
+    def planets_by_spacecraft(rocket)
+        Planet.all.select do |each_planet| 
+            if each_planet.spacecraft == rocket
+                puts each_planet.name
             end 
         end 
-        array.sort 
     end 
     
 end 

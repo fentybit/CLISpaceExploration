@@ -4,7 +4,8 @@
 
 # Relationships:
   There are 3 main Model or classes >> Astronaut, Spacecraft and Planet.
-    <!-- Number of missions -->
+
+
     Astronaut has many Spacecraft
     Astronaut conquers many Planets through Spacecraft
 

@@ -73,7 +73,9 @@ class API
         random_planet = []
 
         space_data.each do |data|
-            random_planet << data["englishName"]
+            if data["englishName"] != ""
+                random_planet << data["englishName"]
+            end 
         end 
 
         random_planet.sample(1)

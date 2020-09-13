@@ -1,6 +1,6 @@
 class SpaceExploration::CLI 
 
-    def mission 
+    def start 
         puts ""
         colorizer = Lolize::Colorizer.new
         colorizer.write " ---------  Welcome to the International Space Station!  ----------- \n"
@@ -11,7 +11,7 @@ class SpaceExploration::CLI
         colorizer.write "          |     |           `  .    '             . *   .    +    '  \n"
         colorizer.write "        _.'-----'-._     *                  .                        \n"
         colorizer.write "      /             \__.__.--._______________                        \n"
-        colorizer.write " ------------------------------------------------------------------  \n"
+        colorizer.write " ------------------------------------------------------------------- \n"
         puts ""
         get_astronaut 
         ready_for_mission? 
@@ -36,7 +36,7 @@ class SpaceExploration::CLI
             Astronaut.new 
             puts "Smart decision." 
             puts "Shelby Hall has been traveling in space with 27 years of experience, and she will be your travel buddy."
-            puts "Both of you have an average of #{Astronaut.avg_yrs_exp} years of space traveling experience."
+            puts "The space crew has an average of #{Astronaut.avg_yrs_exp} years of space traveling experience."
             puts ""
             puts "Let's now select your spacecraft, powered by SpaceX."
         else
@@ -99,7 +99,7 @@ class SpaceExploration::CLI
             puts "Which one would you like to go to? Enter the number."
             input_two = gets.strip.to_i
             @current_planet = planets[input_two - 1].to_s
-            Planet.new(@current_planet)
+            Planet.new(@current_planet, @rocket_name)
         elsif input_one == "2"
             puts ""
             puts "There are 273 Dwarf Planet selections. We will give you 10."
@@ -107,11 +107,11 @@ class SpaceExploration::CLI
             puts "Which one would you like to go to? Enter the number."
             input_two = gets.strip.to_i
             @current_planet = planets[input_two - 1].to_s
-            Planet.new(@current_planet)
+            Planet.new(@current_planet, @rocket_name)
         elsif input_one == "3"
             @current_planet = API.random_planet.first
             puts "Great! We shall prepare immediately."
-            Planet.new(@current_planet)
+            Planet.new(@current_planet, @rocket_name)
         else 
             puts "Please re-enter option 1, 2 or 3."
             user_choose_planet 
@@ -162,7 +162,7 @@ class SpaceExploration::CLI
             end 
 
         elsif input_one.downcase == "n" || input_one.downcase == "no"
-            return_to_earth
+            return_to_iss
         end 
     end 
 
@@ -201,16 +201,16 @@ class SpaceExploration::CLI
                     colorizer.write ".      .  .  .  *   .  *  . +..  .            *      \n"
                     colorizer.write ".      .   . .   .   .   . .  +   .    .            +\n"
                     puts ""
-                    puts "Your closest planet is " + data["aroundPlanet"]["planet"].capitalize.to_s + "."
+                    puts "Your closest planet is " + data["englishName"].to_s + "."
                     puts ""
                     puts "Would you like to go there? Y/N."
                     input_one = gets.strip
 
                     if input_one.downcase == "y" || input_one.downcase == "yes"
-                        id_name = data["aroundPlanet"]["planet"]
+                        id_name = data["englishName"]
                         @current_planet = API.planet_name(id_name)
                         
-                        Planet.new(@current_planet)
+                        Planet.new(@current_planet, @rocket_name)
                         planet_landing?
                     else 
                         choose_planet 
@@ -220,15 +220,19 @@ class SpaceExploration::CLI
         end 
     end 
 
-    def return_to_earth 
+    def return_to_iss
         welcome_back_to_iss
         puts "Here is summary of your space travel."
         puts ""
         puts "Your space crew:"
         Astronaut.sorted_names.each_with_index {|x, i| puts "#{i + 1}. #{x}"}
         puts ""
-        Spacecraft.all.each do |rocket| 
-            rocket.planets_by_spacecraft
+
+        Spacecraft.all.each.with_index(1) do |rocket, i| 
+            puts "Spacecraft #{i}: #{rocket.name}"
+            puts "Planets conquered:" 
+            puts ship.planets_by_spacecraft(rocket.name)
+            puts ""
         end 
         puts ""
         puts "Goodbye now."
