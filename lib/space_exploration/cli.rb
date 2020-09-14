@@ -1,6 +1,12 @@
 class SpaceExploration::CLI 
 
     def start 
+        iss
+        get_astronaut 
+        ready_for_mission? 
+    end 
+
+    def iss 
         puts ""
         colorizer = Lolize::Colorizer.new
         colorizer.write " ---------  Welcome to the International Space Station!  ----------- \n"
@@ -13,30 +19,28 @@ class SpaceExploration::CLI
         colorizer.write "      /             \__.__.--._______________                        \n"
         colorizer.write " ------------------------------------------------------------------- \n"
         puts ""
-        get_astronaut 
-        ready_for_mission? 
     end 
 
     def get_astronaut 
-        puts "Good day, Astronaut! What's your name?"
+        puts "Hello Astronaut! What's your name?"
         name = gets.strip.split[0].capitalize
 
         puts ""
-        puts "How many years of travel space experience do you have?"
+        puts "How many years of space exploration do you have?"
         yrs_exp = gets.strip.to_i
 
         Astronaut.new(name, yrs_exp)
         
         puts ""
-        puts "Hello #{name}. Would you like to add another astronaut for your crew? Y/N."
+        puts "Hello #{name}. Would you like to add another Astronaut to your crew? Y/N."
         input = gets.strip
 
         puts ""
         if input.downcase == "y" || input.downcase == "yes"
             Astronaut.new 
             puts "Smart decision." 
-            puts "Shelby Hall has been traveling in space with 27 years of experience, and she will be your travel buddy."
-            puts "The space crew has an average of #{Astronaut.avg_yrs_exp} years of space traveling experience."
+            puts "Shelby Hall has 27 years of space exploration, and she will be co-captain."
+            puts "The space crew has an average of #{Astronaut.avg_yrs_exp} years of experience in space."
             puts ""
             puts "Let's now select your spacecraft, powered by SpaceX."
         else
@@ -47,6 +51,7 @@ class SpaceExploration::CLI
     end 
 
     def ready_for_mission?
+        puts ""
         puts "Are you ready for your mission? Y/N."
         input = gets.strip
 
@@ -54,37 +59,40 @@ class SpaceExploration::CLI
             get_spacecraft
         else 
             puts ""
-            puts "Mission Abort!"
-            puts "You may restart your mission whenever you are ready."
+            puts "Abort mission!".colorize(:red)
+            puts "You may restart your mission when you are ready."
+            puts ""
         end 
     end 
 
     def get_spacecraft 
         puts ""
-        puts "We have 4 available spacecrafts:"
-        puts ""
+        puts "All Spacecraft are now standing by for departure."
         API.spacecraft_selection
-        puts "Which one would you like to choose? Enter 1, 2, 3 or 4."
+        puts ""
+        puts "Please make your selection. Enter 1 or 2."
         input = gets.strip
 
         @rocket_name = API.spacecraft_data[input.to_i - 1]["rocket_name"]
         Spacecraft.new(@rocket_name)
         puts ""
-        puts "Great! #{@rocket_name} is up and ready for you."
+        puts "Great! #{@rocket_name} is primed and ready for launch."
         puts ""
-        puts "There are many to choose in this Milky Way Galaxy."
+        puts "There are many destinations to select from in the Milky Way Galaxy."
         choose_planet
     end 
 
     def choose_planet 
         puts ""
-        puts "1. Planets"
-        puts "   Astronomical body orbiting a star or stellar remnant that is massive enough to be rounded by its own gravity"
-        puts "2. Dwarf Planets"
-        puts "   Worlds that are too small to be considered full-fledged planets, but too large to fall into smaller categories."
-        puts "3. Your spacecraft can select random planet to fit best the fuel and time travel efficiency."
+        puts "1. Planet"
+        puts "   Astronomical body orbiting a star that is massive enough to be rounded by its own gravity."
         puts ""
-        puts "Would you like to travel to Planets or Dwarf Planets? Enter 1, 2 or 3."
+        puts "2. Dwarf Planet or Asteroid"
+        puts "   Worlds that are too small to be considered full-fledged planets, but too large to fall into smaller categories."
+        puts ""
+        puts "3. Random destination that fits best with fuel and travel time efficiency."
+        puts ""
+        puts "Please make your selection. Enter 1, 2 or 3."
 
         user_choose_planet
     end 
@@ -94,29 +102,33 @@ class SpaceExploration::CLI
         
         if input_one == "1"
             puts ""
-            puts "Here are your Planet selections."
+            puts "Here are your Planet selections:"
             planets = API.planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
-            puts "Which one would you like to go to? Enter the number."
+            puts ""
+            puts "Please make your selection. Enter the number."
             input_two = gets.strip.to_i
             @current_planet = planets[input_two - 1].to_s
             Planet.new(@current_planet, @rocket_name)
         elsif input_one == "2"
             puts ""
-            puts "There are 273 Dwarf Planet selections. We will give you 10."
+            puts "There are 273 Dwarf Planet and Asteroid selections. We will give you 10:"
             planets = API.dwarf_planets.each.with_index(1) {|x, i| puts "#{i}. #{x}"}
-            puts "Which one would you like to go to? Enter the number."
+            puts ""
+            puts "Please make your selection. Enter the number."
             input_two = gets.strip.to_i
             @current_planet = planets[input_two - 1].to_s
             Planet.new(@current_planet, @rocket_name)
         elsif input_one == "3"
-            @current_planet = API.random_planet.first
-            puts "Great! We shall prepare immediately."
+            @current_planet = API.random_planet.first 
+            puts ""
+            puts "Prepare for launch."
             Planet.new(@current_planet, @rocket_name)
         else 
             puts "Please re-enter option 1, 2 or 3."
             user_choose_planet 
         end 
 
+        puts ""
         puts "#{@current_planet} it is. Please stand by."
         
         planet_landing?
@@ -132,7 +144,7 @@ class SpaceExploration::CLI
         gravity = API.planet_gravity(@current_planet)
 
         if gravity == 0.0 || gravity == nil 
-            puts "Unfortunately, we are unable to land on this planet with 0 gravity.".colorize(:red)
+            puts "Unfortunately the planet has 0.0 gravity, #{@rocket_name} is unable to make its landing.".colorize(:red)
         else 
             puts "We are able to land on this planet with #{gravity} m.s-2 gravity.".colorize(:green)
         end 
@@ -147,37 +159,25 @@ class SpaceExploration::CLI
 
         if input_one.downcase == "y" || input_one.downcase == "yes"
             puts ""
-            puts "Let's check your current spacecraft #{@rocket_name} engine status."
+            puts "Let's check your current Spacecraft #{@rocket_name}'s success rate."
             puts ""
-            API.spacecraft_status(@rocket_name)
+            success_rate = rand(20..90)
             puts ""
-            puts "Would you like to change your spacecraft? Y/N."
-            input_two = gets.strip
 
-            if input_two.downcase == "y" || input_two.downcase == "yes" 
-                welcome_back_to_iss
+            if success_rate < 50  
+                puts "Your Spacecraft success rate is currently at #{success_rate}%.".colorize(:red)
+                puts "We must first take a detour back to the International Space Station."
+                iss
                 get_spacecraft
-            elsif input_two.downcase == "n" || input_two.downcase == "no" 
+            elsif success_rate >= 50   
+                puts "Your Spacecraft success rate is currently at #{success_rate}%.".colorize(:green)
+                puts "We may continue the space journey."
                 closest_planet(@current_planet)
             end 
 
         elsif input_one.downcase == "n" || input_one.downcase == "no"
             return_to_iss
         end 
-    end 
-
-    def welcome_back_to_iss 
-        puts ""
-        puts "-------  Welcome back to the International Space Station!  -------".colorize(:blue)
-        puts "      .    _     *       \|/   .       .      -*-              +  ".colorize(:light_blue)
-        puts "        .' \\ `.     +    -*-     *   .         '       .   *     ".colorize(:light_blue)
-        puts "     .  |__''_|  .       /|\ +         .    +       .           | ".colorize(:light_blue)
-        puts "        |     | .                                        .     -*-".colorize(:light_blue)
-        puts "        |     |           `  .    '             . *   .    +    ' ".colorize(:light_blue)
-        puts "      _.'-----'-._     *                  .                       ".colorize(:light_blue)
-        puts "    /             \__.__.--._______________                       ".colorize(:light_blue)
-        puts "------------------------------------------------------------------".colorize(:blue)
-        puts ""
     end 
 
     def closest_planet(current_planet)
@@ -189,6 +189,7 @@ class SpaceExploration::CLI
                     puts "#{@rocket_name} is re-calibrating the Milky Way Solar System."
                     choose_planet
                 elsif data["aroundPlanet"]["planet"] != nil 
+                    puts ""
                     colorizer = Lolize::Colorizer.new
                     colorizer.write " .              +   .                .   . .     .  .\n"
                     colorizer.write "        .                    .       .     *         \n"
@@ -203,9 +204,9 @@ class SpaceExploration::CLI
                     puts ""
                     id_name = data["aroundPlanet"]["planet"]
                     nearby_planet = API.planet_name_search(id_name)
-                    puts "Your closest planet is #{nearby_planet}."
+                    puts "The closest planet to your current position in space is #{nearby_planet}."
                     puts ""
-                    puts "Would you like to go there? Y/N."
+                    puts "Would you like to travel there? Y/N."
                     input_one = gets.strip
 
                     if input_one.downcase == "y" || input_one.downcase == "yes"
@@ -222,8 +223,8 @@ class SpaceExploration::CLI
     end 
 
     def return_to_iss
-        welcome_back_to_iss
-        puts "Here is summary of your space travel."
+        iss
+        puts "Here is the summary of your space travel."
         puts ""
         puts "Your space crew:"
         Astronaut.sorted_names.each_with_index {|x, i| puts "#{i + 1}. #{x}"}
@@ -232,8 +233,10 @@ class SpaceExploration::CLI
         Spacecraft.list_planets_by_spacecraft
         
         puts ""
-        puts "You conquered #{Planet.count} planets!"
+        puts "You visited #{Planet.count} planets!"
+        puts ""
         puts "Goodbye now."
+        puts ""
     end 
     
 end 

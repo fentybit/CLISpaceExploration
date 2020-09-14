@@ -14,23 +14,12 @@ class API
     end
 
     def self.spacecraft_selection
-        spacecraft_data.each do |ship|
-            puts ship["rocket_name"].to_s 
-            puts ship["description"].to_s
-            puts "  Height: " + ship["height"]["feet"].to_s + " feet"
-            puts "  Mass: " + ship["mass"]["lb"].to_s + " lbs"
-        end 
-    end 
-
-    def self.spacecraft_status(name)
-        spacecraft_data.detect do |ship|
-            if ship["rocket_name"] == name 
+        spacecraft_data.sample(2).each do |ship|
+                puts ""
                 puts ship["rocket_name"].to_s 
-                puts "  Success Rate: " + ship["success_rate_pct"].to_s + "%"
-                puts "  Engine type: " + ship["engines"]["type"].capitalize.to_s 
-                puts "  Engine propellant 1: " + ship["engines"]["propellant_1"].capitalize.to_s 
-                puts "  Engine propellant 2: " + ship["engines"]["propellant_2"].capitalize.to_s 
-            end 
+                puts ship["description"].to_s
+                puts "  Height: " + ship["height"]["feet"].to_s + " feet"
+                puts "  Mass: " + ship["mass"]["lb"].to_s + " lbs"
         end 
     end 
     

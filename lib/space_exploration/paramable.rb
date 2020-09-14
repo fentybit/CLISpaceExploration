@@ -1,9 +1,5 @@
 module Paramable
     module ClassMethods
-        # def all
-        #     @@all
-        # end 
-
         def count 
             all.count 
         end 

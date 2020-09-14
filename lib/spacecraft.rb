@@ -13,7 +13,7 @@ class Spacecraft
     end 
 
     def self.all 
-        @@all 
+        @@all
     end 
 
     # def save
@@ -34,8 +34,8 @@ class Spacecraft
 
     def self.list_planets_by_spacecraft
         all.each.with_index(1) do |rocket, i| 
-            puts "Spacecraft #{i}: #{rocket.name}"
-            puts "Planets conquered:" 
+            puts "Spacecraft #{i} - #{rocket.name}"
+            puts "Planets visited:" 
             puts rocket.planets_by_spacecraft(rocket.name)
             puts ""
         end 
