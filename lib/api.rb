@@ -1,5 +1,3 @@
-require 'pry'
-
 class API 
 
     # API for spacecraft data
@@ -14,12 +12,12 @@ class API
     end
 
     def self.spacecraft_selection
-        spacecraft_data.sample(2).each do |ship|
+        spacecraft_data.sample(2).collect.with_index(1) do |rocket, i|
                 puts ""
-                puts ship["rocket_name"].to_s 
-                puts ship["description"].to_s
-                puts "  Height: " + ship["height"]["feet"].to_s + " feet"
-                puts "  Mass: " + ship["mass"]["lb"].to_s + " lbs"
+                puts "#{i}. " + rocket["rocket_name"].to_s 
+                puts rocket["description"].to_s
+                puts "  Height: " + rocket["height"]["feet"].to_s + " feet"
+                puts "  Mass: " + rocket["mass"]["lb"].to_s + " lbs"
         end 
     end 
     
@@ -37,7 +35,7 @@ class API
     def self.planets
         planets = []
 
-        space_data.each do |data|
+        space_data.collect do |data|
             if data["isPlanet"] == true
                 planets << data["englishName"]
             end 
@@ -49,7 +47,7 @@ class API
     def self.dwarf_planets
         dwarf_planets = []
 
-        space_data.each do |data|
+        space_data.collect do |data|
             if data["isPlanet"] == false && data["englishName"] != ""
                 dwarf_planets << data["englishName"]
             end 
@@ -61,7 +59,7 @@ class API
     def self.random_planet
         random_planet = []
 
-        space_data.each do |data|
+        space_data.collect do |data|
             if data["englishName"] != ""
                 random_planet << data["englishName"]
             end 

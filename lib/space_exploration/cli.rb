@@ -1,15 +1,17 @@
 class SpaceExploration::CLI 
 
     def start 
-        iss
-        get_astronaut 
-        ready_for_mission? 
-    end 
-
-    def iss 
         puts ""
         colorizer = Lolize::Colorizer.new
         colorizer.write " ---------  Welcome to the International Space Station!  ----------- \n"
+        int_space_station 
+
+        get_astronaut 
+    end 
+
+    def int_space_station 
+        colorizer = Lolize::Colorizer.new
+        puts ""
         colorizer.write "        .    _     *       \|/   .       .      -*-              +   \n"
         colorizer.write "          .' \\ `.     +    -*-     *   .         '       .   *      \n"
         colorizer.write "       .  |__''_|  .       /|\ +         .    +       .           |  \n"
@@ -23,51 +25,77 @@ class SpaceExploration::CLI
 
     def get_astronaut 
         puts "Hello Astronaut! What's your name?"
-        name = gets.strip.split[0].capitalize
+        @name = gets.strip.split[0].capitalize
 
         puts ""
+        sleep(1)
         puts "How many years of space exploration do you have?"
         yrs_exp = gets.strip.to_i
 
-        Astronaut.new(name, yrs_exp)
+        Astronaut.new(@name, yrs_exp)
         
         puts ""
-        puts "Hello #{name}. Would you like to add another Astronaut to your crew? Y/N."
-        input = gets.strip
+        sleep(1)
+        puts "Hello #{@name}. Would you like to add another Astronaut to your crew? Y/N."
+        
+        optional_astronaut?
+    end 
 
+    def optional_astronaut?
+        input = gets.strip
+        
         puts ""
+        sleep(1)
         if input.downcase == "y" || input.downcase == "yes"
             Astronaut.new 
             puts "Smart decision." 
+            puts ""
+            sleep(1)
             puts "Shelby Hall has 27 years of space exploration, and she will be co-captain."
+            sleep(1)
             puts "The space crew has an average of #{Astronaut.avg_yrs_exp} years of experience in space."
             puts ""
-            puts "Let's now select your spacecraft, powered by SpaceX."
-        else
-            puts "You are very brave, #{name}."
+            sleep(1)
+            puts "Let's now select your Spacecraft, powered by SpaceX."
+        elsif input.downcase == "n" || input.downcase == "no"
+            puts "You are very brave, #{@name}."
             puts ""
-            puts "Let's now select your spacecraft, powered by SpaceX."
+            sleep(1)
+            puts "Let's now select your Spacecraft, powered by SpaceX."
+        else 
+            puts ""
+            puts "Please re-enter option, Y/N."
+            optional_astronaut?
         end 
+
+        puts ""
+        sleep(1)
+        puts "Are you ready for your mission? Y/N."
+        ready_for_mission? 
     end 
 
     def ready_for_mission?
-        puts ""
-        puts "Are you ready for your mission? Y/N."
         input = gets.strip
 
+        sleep(1)
         if input.downcase == "y" || input.downcase == "yes"
             get_spacecraft
-        else 
+        elsif input.downcase == "n" || input.downcase == "no"
             puts ""
             puts "Abort mission!".colorize(:red)
             puts "You may restart your mission when you are ready."
             puts ""
+        else 
+            puts "Please re-enter option, Y/N."
+            ready_for_mission?
         end 
     end 
 
     def get_spacecraft 
         puts ""
         puts "All Spacecraft are now standing by for departure."
+        sleep(1)
+
         API.spacecraft_selection
         puts ""
         puts "Please make your selection. Enter 1 or 2."
@@ -136,6 +164,17 @@ class SpaceExploration::CLI
 
     def planet_landing?
         puts ""
+        colorizer = Lolize::Colorizer.new
+        colorizer.write "    . .        .  .      /.   .      .    .     .     .  / .      . '\n"
+        colorizer.write "        .  +       .    /     .          .          .   /      .     \n"
+        colorizer.write "       .            .  /         .            .        *   .         \n"
+        colorizer.write "      .   .      .    *     .     .    .      .   .       .  .       \n"
+        colorizer.write "          .           .           .           .           .         +\n"
+        colorizer.write "  . .        .  .       .   .      .    .     .     .    .      .   .\n"
+        colorizer.write " .   +      .          ___/\_._/~~\_...__/\__.._._/~\        .       \n"
+        colorizer.write "       .          _.--'                              `--./\          \n"
+        colorizer.write "           /~~\/~\                                         `-/~\_    \n"
+        puts ""
         puts "Welcome to #{@current_planet}. Loading planet information."
         puts ""
         API.planet_info(@current_planet)
@@ -167,7 +206,11 @@ class SpaceExploration::CLI
             if success_rate < 50  
                 puts "Your Spacecraft success rate is currently at #{success_rate}%.".colorize(:red)
                 puts "We must first take a detour back to the International Space Station."
-                iss
+
+                colorizer = Lolize::Colorizer.new
+                colorizer.write " ------  Welcome back to the International Space Station!  --------- \n"
+                int_space_station
+
                 get_spacecraft
             elsif success_rate >= 50   
                 puts "Your Spacecraft success rate is currently at #{success_rate}%.".colorize(:green)
@@ -176,7 +219,7 @@ class SpaceExploration::CLI
             end 
 
         elsif input_one.downcase == "n" || input_one.downcase == "no"
-            return_to_iss
+            return_to_int_space_station
         end 
     end 
 
@@ -191,16 +234,16 @@ class SpaceExploration::CLI
                 elsif data["aroundPlanet"]["planet"] != nil 
                     puts ""
                     colorizer = Lolize::Colorizer.new
-                    colorizer.write " .              +   .                .   . .     .  .\n"
-                    colorizer.write "        .                    .       .     *         \n"
-                    colorizer.write ".       *                        . . . .  .   .  + . \n"
-                    colorizer.write "                           .   .  +  . . .           \n"
-                    colorizer.write "+      .           .   .      +                      \n"
-                    colorizer.write "                 .       . +  .+. .                  \n"
-                    colorizer.write ".                      .     . + .  . .     .      . \n"
-                    colorizer.write "    . + .  .  .  .. +  .                             \n"
-                    colorizer.write ".      .  .  .  *   .  *  . +..  .            *      \n"
-                    colorizer.write ".      .   . .   .   .   . .  +   .    .            +\n"
+                    colorizer.write "     .              +   .                    .   . .     .     .     \n"
+                    colorizer.write "        .                    .       .     *                         \n"
+                    colorizer.write "    .       *                                . . . .      .   .  + . \n"
+                    colorizer.write "                               .   .  +  . . .                       \n"
+                    colorizer.write "    +      .           .       .      +                              \n"
+                    colorizer.write "                      .       . +  .+. .                             \n"
+                    colorizer.write "    .                      .     . + .    . .     .      .           \n"
+                    colorizer.write "        . + .       .  .    .. +  .                                  \n"
+                    colorizer.write "    .      .  .  .  *   .  *  . +..  .            *                  \n"
+                    colorizer.write "    .      .   . .        .   .       .   .  +   .    .            + \n"
                     puts ""
                     id_name = data["aroundPlanet"]["planet"]
                     nearby_planet = API.planet_name_search(id_name)
@@ -222,17 +265,19 @@ class SpaceExploration::CLI
         end 
     end 
 
-    def return_to_iss
-        iss
+    def return_to_int_space_station 
+        colorizer = Lolize::Colorizer.new
+        colorizer.write " ------  Welcome back to the International Space Station!  --------- \n"
+        int_space_station
         puts "Here is the summary of your space travel."
         puts ""
         puts "Your space crew:"
         Astronaut.sorted_names.each_with_index {|x, i| puts "#{i + 1}. #{x}"}
         puts ""
-
-        Spacecraft.list_planets_by_spacecraft
         
+        Spacecraft.list_planets_by_spacecraft
         puts ""
+
         puts "You visited #{Planet.count} planets!"
         puts ""
         puts "Goodbye now."
@@ -242,32 +287,14 @@ class SpaceExploration::CLI
 end 
   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# spacecraft performance
 # input = nil
 # while input != "exit" 
-# puts "blablabla"
 # case
 # when
 # else (when user input wrong)
 
 # ||=
-# private methods?
 
 # Custom Error
 

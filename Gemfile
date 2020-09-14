@@ -7,4 +7,4 @@ gem 'rspec', "~> 3.0"
 gem 'require_all'
 gem 'lolize'
 gem 'json'
-gem 'pry'
+# gem 'pry'

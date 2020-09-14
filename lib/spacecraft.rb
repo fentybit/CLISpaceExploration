@@ -1,9 +1,7 @@
-require 'pry'
-# Add spacecraft condition
-
 class Spacecraft 
     extend Paramable::ClassMethods
     include Paramable::InstanceMethods
+
     attr_accessor :name, :astronaut, :planet 
     @@all = []
 
@@ -15,14 +13,6 @@ class Spacecraft
     def self.all 
         @@all
     end 
-
-    # def save
-    #     self.class.all << self
-    # end 
-
-    # def self.count 
-    #     all.count 
-    # end 
 
     def planets_by_spacecraft(rocket)
         Planet.all.select do |each_planet| 
