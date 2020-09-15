@@ -30,15 +30,34 @@ class SpaceExploration::CLI
         puts ""
         sleep(1)
         puts "How many years of space exploration do you have?"
-        yrs_exp = gets.strip.to_i
+        @yrs_exp = gets.strip.to_i
 
-        Astronaut.new(@name, yrs_exp)
+        get_spacecraft 
+
+        Astronaut.new(@name, @yrs_exp, @spacecraft)
         
         puts ""
         sleep(1)
-        puts "Hello #{@name}. Would you like to add another Astronaut to your crew? Y/N."
+        puts "#{@name}. Would you like to add another Astronaut to your crew? Y/N."
         
         optional_astronaut?
+    end 
+
+    def get_spacecraft 
+        puts ""
+        puts "All Spacecraft are now standing by for departure."
+        puts "Let's now select your Spacecraft, powered by SpaceX."
+        sleep(1)
+
+        API.spacecraft_selection
+        puts ""
+        puts "Please make your selection. Enter 1 or 2."
+        input = gets.strip
+
+        @rocket_name = API.spacecraft_data[input.to_i - 1]["rocket_name"]
+        @spacecraft = Spacecraft.new(@rocket_name)
+        puts ""
+        puts "Great! #{@rocket_name} is primed and ready for launch."
     end 
 
     def optional_astronaut?
@@ -47,21 +66,27 @@ class SpaceExploration::CLI
         puts ""
         sleep(1)
         if input.downcase == "y" || input.downcase == "yes"
-            Astronaut.new 
+            sleep(1)
             puts "Smart decision." 
             puts ""
-            sleep(1)
-            puts "Shelby Hall has 27 years of space exploration, and she will be co-captain."
-            sleep(1)
-            puts "The space crew has an average of #{Astronaut.avg_yrs_exp} years of experience in space."
+
+            puts "What's the Astronaut's name?"
+            @name = gets.strip.split[0].capitalize
+    
             puts ""
             sleep(1)
-            puts "Let's now select your Spacecraft, powered by SpaceX."
+            puts "How many years of space exploration does the Astronaut have?"
+            @yrs_exp = gets.strip.to_i
+
+            Astronaut.new(@name, @yrs_exp, @spacecraft)
+
+            sleep(1)
+            puts ""
+            puts "The space crew has #{Astronaut.all} Astronauts with an average of #{Astronaut.avg_yrs_exp} years of experience in space."
+            sleep(1)
+            
         elsif input.downcase == "n" || input.downcase == "no"
             puts "You are very brave, #{@name}."
-            puts ""
-            sleep(1)
-            puts "Let's now select your Spacecraft, powered by SpaceX."
         else 
             puts ""
             puts "Please re-enter option, Y/N."
@@ -70,6 +95,8 @@ class SpaceExploration::CLI
 
         puts ""
         sleep(1)
+        puts "There are many destinations to select from in the Milky Way Galaxy."
+        puts ""
         puts "Are you ready for your mission? Y/N."
         ready_for_mission? 
     end 
@@ -79,7 +106,7 @@ class SpaceExploration::CLI
 
         sleep(1)
         if input.downcase == "y" || input.downcase == "yes"
-            get_spacecraft
+            choose_planet
         elsif input.downcase == "n" || input.downcase == "no"
             puts ""
             puts "Abort mission!".colorize(:red)
@@ -89,25 +116,6 @@ class SpaceExploration::CLI
             puts "Please re-enter option, Y/N."
             ready_for_mission?
         end 
-    end 
-
-    def get_spacecraft 
-        puts ""
-        puts "All Spacecraft are now standing by for departure."
-        sleep(1)
-
-        API.spacecraft_selection
-        puts ""
-        puts "Please make your selection. Enter 1 or 2."
-        input = gets.strip
-
-        @rocket_name = API.spacecraft_data[input.to_i - 1]["rocket_name"]
-        Spacecraft.new(@rocket_name)
-        puts ""
-        puts "Great! #{@rocket_name} is primed and ready for launch."
-        puts ""
-        puts "There are many destinations to select from in the Milky Way Galaxy."
-        choose_planet
     end 
 
     def choose_planet 
@@ -275,11 +283,13 @@ class SpaceExploration::CLI
         Astronaut.sorted_names.each_with_index {|x, i| puts "#{i + 1}. #{x}"}
         puts ""
         
-        Spacecraft.list_planets_by_spacecraft
-        puts ""
-
         puts "You visited #{Planet.count} planets!"
         puts ""
+        Spacecraft.list_planets_by_spacecraft
+
+        puts ""
+        Astronaut.list_planets_by_astronaut 
+
         puts "Goodbye now."
         puts ""
     end 
@@ -287,7 +297,6 @@ class SpaceExploration::CLI
 end 
   
 
-# spacecraft performance
 # input = nil
 # while input != "exit" 
 # case

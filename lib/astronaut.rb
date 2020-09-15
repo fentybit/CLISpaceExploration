@@ -5,9 +5,10 @@ class Astronaut
     attr_accessor :name, :yrs_exp, :spacecraft
     @@all = []
     
-    def initialize(name = "Shelby", yrs_exp = 27)
+    def initialize(name, yrs_exp, spacecraft)
         @name = name
         @yrs_exp = yrs_exp 
+        @spacecraft = spacecraft
         save 
     end 
 
@@ -30,20 +31,20 @@ class Astronaut
     # list planets per individual astronaut? 
     # need to re-factor the CLI class
 
-    # def planets_by_astronaut(astro_name)
-    #     Spacecraft.all.select do |rocket| 
-    #         if rocket.astronaut == astro_name 
-    #             puts rocket.planet
-    #         end 
-    #     end  
-    # end 
+    def planets_by_astronaut(astro_name)
+        Spacecraft.all.select do |rocket| 
+            if rocket.astronaut == astro_name 
+                puts rocket.planet
+            end 
+        end  
+    end 
     
-    # def self.list_planets_by_astronaut 
-    #     self.all.each.with_index(1) do |astro, i| 
-    #         puts "Astronaut #{i} - #{astro.name}"
-    #         puts "Planets visited:"
-    #         puts astro.planets_by_astronaut(astro.name) 
-    #         puts ""
-    #     end 
-    # end 
+    def self.list_planets_by_astronaut 
+        self.all.each.with_index(1) do |astro, i| 
+            puts "Astronaut #{i} - #{astro.name}"
+            puts "Planets visited:"
+            puts astro.planets_by_astronaut(astro.name) 
+            puts ""
+        end 
+    end 
 end 
