@@ -8,13 +8,13 @@ class API
         response = Net::HTTP.get_response(uri)
         response.body
 
-        JSON.parse(response.body)
+        JSON.parse(response.body)[0..2]
     end
 
     def self.spacecraft_selection
-        spacecraft_data.sample(2).collect.with_index(1) do |rocket, i|
+        spacecraft_data.collect.with_index(1) do |rocket, i|
                 puts ""
-                puts "#{i}. " + rocket["rocket_name"].to_s 
+                puts "Spacecraft #{i} - ".colorize(:light_cyan) + rocket["rocket_name"].to_s.colorize(:light_cyan)
                 puts rocket["description"].to_s
                 puts "  Height: " + rocket["height"]["feet"].to_s + " feet"
                 puts "  Mass: " + rocket["mass"]["lb"].to_s + " lbs"
