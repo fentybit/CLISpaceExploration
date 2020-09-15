@@ -92,7 +92,7 @@ class SpaceExploration::CLI
             sleep(1)
             
         elsif input.downcase == "n" || input.downcase == "no"
-            puts "You are very brave, #{@name}."
+            puts "Brave decision."
 
         else 
             puts "Your input is invalid."
@@ -296,6 +296,7 @@ class SpaceExploration::CLI
                     puts "The closest planet to your current position in space is #{nearby_planet}."
                     puts ""
                     puts "Would you like to travel there? Y/N."
+                    puts ""
                     user_input = gets.strip
 
                     if user_input.downcase == "y" || user_input.downcase == "yes"
