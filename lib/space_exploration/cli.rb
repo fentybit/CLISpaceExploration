@@ -186,14 +186,13 @@ class SpaceExploration::CLI
             puts "Please re-enter option 1, 2 or 3."
             user_choose_planet 
         end 
-
-        puts ""
-        puts "#{@current_planet} it is. Please stand by."
         
         planet_landing?
     end 
-
+    
     def planet_landing?
+        puts ""
+        puts "#{@current_planet} it is. Please stand by."
         puts ""
         sleep(1)
         colorizer = Lolize::Colorizer.new

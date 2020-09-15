@@ -5,14 +5,14 @@
 # Relationships:
   There are 3 main Model or classes >> Astronaut, Spacecraft and Planet.
 
-    Astronaut has many Spacecraft
-    Astronaut conquers many Planets through Spacecraft
+    Astronaut has many Spacecraft 
+    Astronaut visits many Planets via Spacecraft
 
-    Spacecraft belongs to Astronaut
-    Spacecraft lands on many Planets
+    Spacecraft belongs-to Astronaut, or has-many Astronauts
+    Spacecraft lands on Planet(s)
 
-    Planet belongs to Spacecraft
-    Planet has many Astronauts through Spacecraft
+    Planet belongs to Spacecraft 
+    Planet has-many Astronauts via Spacecraft
 
   Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/space_exploration`. To experiment with that code, run `bin/console` for an interactive prompt.
 
