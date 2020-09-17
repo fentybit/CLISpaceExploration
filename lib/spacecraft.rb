@@ -14,9 +14,9 @@ class Spacecraft
         @@all
     end 
 
-    def planets_by_spacecraft(rocket)
+    def planets_by_spacecraft
         Planet.all.select do |each_planet| 
-            if each_planet.spacecraft == rocket
+            if each_planet.spacecraft == self.name
                 puts each_planet.name
             end 
         end 
@@ -26,7 +26,7 @@ class Spacecraft
         all.each.with_index(1) do |rocket, i| 
             puts "Spacecraft #{i} - #{rocket.name}"
             puts "Planets visited:" 
-            puts rocket.planets_by_spacecraft(rocket.name)
+            puts rocket.planets_by_spacecraft
             puts ""
         end 
     end 

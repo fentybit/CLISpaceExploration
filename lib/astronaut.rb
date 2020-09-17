@@ -2,7 +2,8 @@ class Astronaut
     extend Paramable::ClassMethods
     include Paramable::InstanceMethods
 
-    attr_accessor :name, :yrs_exp, :spacecraft
+    attr_reader :name, :yrs_exp
+    attr_accessor :spacecraft
     @@all = []
     
     def initialize(name, yrs_exp)
@@ -10,6 +11,10 @@ class Astronaut
         @yrs_exp = yrs_exp 
         save 
     end 
+
+    # def name=(name)
+    #     @name = name
+    # end 
 
     def self.all
         @@all
