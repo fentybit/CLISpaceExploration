@@ -4,10 +4,13 @@
   <img src="./space.png">
 </div>
 
-Domain >> Space Travel.<br>
+<br>
+
+<strong>Domain Modeling >> Space Travel.</strong><br>
 Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!<br>
 
-<a href="https://youtu.be/amt7y-bIKkk">YouTube Demo</a>
+<p><a href="https://youtu.be/amt7y-bIKkk">YouTube Demo</a></p>
+<p><a href="https://dev.to/codinghall/api-cli-space-exploration-108f">DEV Blog</a></p>
 
 ## Installation
 
@@ -29,3 +32,8 @@ Astronaut, Spacecraft and Planet
 
 > Planet belongs to Spacecraft 
 > Panet has-many Astronauts via Spacecraft
+
+## Resources
+
+- [x] <a href="https://www.asciiart.eu/">ASCII Art Archive</a>
+- [x] <a href="https://api.le-systeme-solaire.net/en/">The Solar System OpenData</a>
