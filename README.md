@@ -40,9 +40,17 @@ Astronaut, Spacecraft and Planet
 ## Installation
 
 ```ruby
+$ git clone 👾
 $ bundle install
 $ ./bin/space_exploration
 ```
+
+## Stack
+
+- [x] Rake
+- [x] Lolize
+- [x] JSON
+- [x] Colorize
 
 ## Resources
 
