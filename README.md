@@ -23,6 +23,8 @@ Welcome to your Space Exploration, where you can select your space crew, pick yo
   <img src="space_exploration_diagram.jpg">
 </div>
 
+<br>
+
 There are 3 main Model or classes:<br>
 Astronaut, Spacecraft and Planet
 
