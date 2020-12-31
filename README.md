@@ -1,7 +1,9 @@
 # Space Exploration
 
-Domain >> Space Travel.
-Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!
+<img src="./space.png">
+
+Domain >> Space Travel.<br>
+Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!<br>
 
 <a href="https://youtu.be/amt7y-bIKkk">YouTube Demo</a>
 
