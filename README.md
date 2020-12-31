@@ -24,16 +24,13 @@ $ ./bin/space_exploration
 There are 3 main Model or classes:<br>
 Astronaut, Spacecraft and Planet
 
-> Astronaut has many Spacecraft 
-
+> Astronaut has many Spacecraft <br>
 > Astronaut visits many Planets via Spacecraft
 
-> Spacecraft belongs-to Astronaut, or has-many Astronauts
-
+> Spacecraft belongs-to Astronaut, or has-many Astronauts <br>
 > Spacecraft lands on Planet(s)
 
-> Planet belongs to Spacecraft 
-
+> Planet belongs to Spacecraft <br>
 > Panet has-many Astronauts via Spacecraft
 
 ## Resources
