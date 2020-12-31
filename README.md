@@ -1,6 +1,8 @@
 # Space Exploration
 
-<img src="./space.png" align="center">
+<div align="center">
+  <img src="./space.png">
+</div>
 
 Domain >> Space Travel.<br>
 Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!<br>
