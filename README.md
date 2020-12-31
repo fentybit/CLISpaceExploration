@@ -25,12 +25,15 @@ There are 3 main Model or classes:<br>
 Astronaut, Spacecraft and Planet
 
 > Astronaut has many Spacecraft 
+
 > Astronaut visits many Planets via Spacecraft
 
 > Spacecraft belongs-to Astronaut, or has-many Astronauts
+
 > Spacecraft lands on Planet(s)
 
 > Planet belongs to Spacecraft 
+
 > Panet has-many Astronauts via Spacecraft
 
 ## Resources
