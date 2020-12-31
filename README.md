@@ -6,7 +6,7 @@
 
 <br>
 
-<strong>Domain Modeling >> Space Travel.</strong><br>
+<strong>Domain Modeling :: Space Travel</strong><br>
 Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!<br>
 
 <p><a href="https://youtu.be/amt7y-bIKkk">YouTube Demo</a></p>
