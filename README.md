@@ -10,7 +10,7 @@
 Welcome to your Space Exploration, where you can select your space crew, pick your favorite spacecraft (powered by SpaceX), and infinite amount of planets in Milky Way Galaxy to travel to!<br>
 
 <p><a href="https://youtu.be/amt7y-bIKkk">YouTube Demo</a></p>
-<p><a href="https://dev.to/codinghall/api-cli-space-exploration-108f">DEV Blog</a></p>
+<p><a href="https://dev.to/fentybit/api-cli-space-exploration-108f">DEV Blog</a></p>
 
 ## About 
 
